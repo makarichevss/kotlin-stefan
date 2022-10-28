@@ -55,5 +55,19 @@ class Practice {
     fun expressionsMatter(a: Int, b: Int, c: Int) =
         max(listOf(a * b * c, a * (b + c), (a + b) * c, a + b + c))
 
+    fun move(pos: Int, roll: Int) =
+        pos + roll * 2
+
+    fun simpleMultiplication(n: Int) =
+        if (n % 2 == 0) { n * 8 } else { n * 9 }
+
+    fun abbrevName(name:String) =
+        name.split(" ").joinToString(".") { it.take(1).uppercase() }
+
+    fun noSpace(x: String) =
+        x.replace(" ", "")
+
+    fun greet(name: String) =
+        "Hello, $name how are you doing today?"
 
 }
