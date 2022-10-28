@@ -70,4 +70,15 @@ class Practice {
     fun greet(name: String) =
         "Hello, $name how are you doing today?"
 
+    fun repeatStr(r: Int, str: String) = str.repeat(r)
+
+    fun reverseWords(str: String) = str.split(" ").reversed().joinToString(" ")
+
+    fun removeChar(str: String) = str.subSequence(1, str.lastIndex)
+
+    fun isDivisible(n: Int, x: Int, y: Int) = listOf(n % x, n % y)
+        .all { it == 0 }
+
+    fun seatsInTheater(nCols: Int, nRows: Int, col: Int, row: Int) =
+        (nRows - row) * (nCols - col + 1)
 }
