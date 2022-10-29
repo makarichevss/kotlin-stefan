@@ -9,8 +9,9 @@ class Practice {
     fun makeNegative(x: Int) = abs(x)
 
     fun twiceAsOld(dadYearsOld: Int, sonYearsOld: Int): Int =
-        abs(dadYearsOld - (sonYearsOld * 2)
-    )
+        abs(
+            dadYearsOld - (sonYearsOld * 2)
+        )
 
     fun maps(x: IntArray): IntArray = x.map { it * 2 }.toIntArray()
 
@@ -50,7 +51,7 @@ class Practice {
 
     fun feast(beast: String, dish: String) =
         beast.first() == dish.first() &&
-        beast.last() == dish.last()
+                beast.last() == dish.last()
 
     fun expressionsMatter(a: Int, b: Int, c: Int) =
         max(listOf(a * b * c, a * (b + c), (a + b) * c, a + b + c))
@@ -59,9 +60,13 @@ class Practice {
         pos + roll * 2
 
     fun simpleMultiplication(n: Int) =
-        if (n % 2 == 0) { n * 8 } else { n * 9 }
+        if (n % 2 == 0) {
+            n * 8
+        } else {
+            n * 9
+        }
 
-    fun abbrevName(name:String) =
+    fun abbrevName(name: String) =
         name.split(" ").joinToString(".") { it.take(1).uppercase() }
 
     fun noSpace(x: String) =
@@ -81,4 +86,22 @@ class Practice {
 
     fun seatsInTheater(nCols: Int, nRows: Int, col: Int, row: Int) =
         (nRows - row) * (nCols - col + 1)
+
+    fun checkForFactor(base: Int, factor: Int) = base % factor == 0
+
+    fun grow(arr: IntArray) = arr.reduce(Int::times)
+
+    fun opposite(number: Int) = -number
+
+    fun past(h: Int, m: Int, s: Int) =
+        (h * 3600 + m * 60 + s) * 1000
+
+    fun multiply(x: Double, y: Double) = x * y
+
+    fun digitize(n: Long) = n.toString().reversed().map { it.digitToInt() }.toIntArray()
+
+    fun subtractSum(n: Int) = "apple"
+
+
+
 }
