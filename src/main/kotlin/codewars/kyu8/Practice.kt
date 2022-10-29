@@ -98,10 +98,53 @@ class Practice {
 
     fun multiply(x: Double, y: Double) = x * y
 
-    fun digitize(n: Long) = n.toString().reversed().map { it.digitToInt() }.toIntArray()
+    fun digitize(n: Long) =
+        n.toString().reversed().map { it.digitToInt() }.toIntArray()
 
     fun subtractSum(n: Int) = "apple"
 
+    fun evenOrOdd(number: Int) = if (number % 2 == 0) {
+        "Even"
+    } else {
+        "Odd"
+    }
 
+    fun numberToString(num: Int) = num.toString()
 
+    fun reverseSeq(n: Int) = (n downTo 1).toList()
+
+    fun sum(numbers: IntArray) = numbers.filter { it > 0 }.sum()
+
+    fun sum(mixed: List<Any>): Int =
+        mixed.sumOf {
+            when (it) {
+                is Int -> it
+                is String -> it.toInt()
+                else -> 0
+            }
+        }
+
+    fun loveFun(flowerA: Int, flowerB: Int) =
+        (flowerA + flowerB) % 2 == 1
+
+    fun findSmallestInt(nums: List<Int>) = nums.minOrNull()
+
+    fun stringToNumber(str: String) = str.toInt()
+
+    fun greet() = "hello world!"
+
+    fun litres(time: Double) = time.toInt() / 2
+
+    fun invert(arr: IntArray) = arr.map { -it }.toIntArray()
+
+    fun calculateYears(years: Int) =
+        when (years) {
+            1 -> arrayOf(1, 15, 15)
+            2 -> arrayOf(years, 24, 24)
+            else -> arrayOf(years, 24 + 4 * (years - 2), 24 + 5 * (years - 2))
+        }
+
+    fun getAge(yearsOld: String) = yearsOld.take(1).toInt()
+
+    fun replace(s: String) = s.replace(Regex("[aeiouAEIUO]"), "!")
 }
