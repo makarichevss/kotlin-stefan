@@ -1,10 +1,10 @@
-package codewars.kyu8
+package codewars
 
 import java.util.*
 import java.util.Collections.max
 import kotlin.math.abs
 
-class Practice {
+class PracticeKyu8 {
 
     fun makeNegative(x: Int) = abs(x)
 
