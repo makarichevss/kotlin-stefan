@@ -2,7 +2,10 @@ package codewars
 
 import kotlin.math.ceil
 import kotlin.math.pow
+<<<<<<< HEAD
 import kotlin.math.roundToLong
+=======
+>>>>>>> origin/master
 
 class PracticeKyu7 {
 
