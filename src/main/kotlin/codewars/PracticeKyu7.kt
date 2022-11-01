@@ -2,10 +2,7 @@ package codewars
 
 import kotlin.math.ceil
 import kotlin.math.pow
-<<<<<<< HEAD
 import kotlin.math.roundToLong
-=======
->>>>>>> origin/master
 
 class PracticeKyu7 {
 
@@ -75,4 +72,25 @@ class PracticeKyu7 {
             )
         }.toTypedArray()
     }
+
+    fun people(busStops: Array<Pair<Int, Int>>) =
+        busStops.sumOf { it.first - it.second }
+
+    fun getCount(str: String) = str.count { it in "aeiou" }
+
+    fun findShort(s: String) = s.split(" ").minOf { it.length }
+
+    fun evaporator(content: Double, evapPerDay: Double, threshold: Double):
+            Int = generateSequence(content) { it - (it / 100 * evapPerDay) }
+        .takeWhile {it > content / 100 * threshold}
+        .count()
+
+    fun growingPlant(upSpeed: Int, downSpeed: Int, desiredHeight: Int): Int =
+        when {
+            upSpeed >= desiredHeight -> 1
+            else -> {
+                ceil(1.0 * (desiredHeight - upSpeed) / (upSpeed - downSpeed))
+                    .toInt() + 1
+            }
+        }
 }
