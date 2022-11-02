@@ -3,6 +3,7 @@ package codewars
 import kotlin.math.ceil
 import kotlin.math.pow
 import kotlin.math.roundToLong
+import kotlin.math.sqrt
 
 class PracticeKyu7 {
 
@@ -82,7 +83,7 @@ class PracticeKyu7 {
 
     fun evaporator(content: Double, evapPerDay: Double, threshold: Double):
             Int = generateSequence(content) { it - (it / 100 * evapPerDay) }
-        .takeWhile {it > content / 100 * threshold}
+        .takeWhile { it > content / 100 * threshold }
         .count()
 
     fun growingPlant(upSpeed: Int, downSpeed: Int, desiredHeight: Int): Int =
@@ -93,4 +94,19 @@ class PracticeKyu7 {
                     .toInt() + 1
             }
         }
+
+    fun reverseLetter(str: String) = str.filter(Char::isLetter).reversed()
+
+    fun predictAge(vararg age: Int) =
+        age.sumOf { it * it }
+            .toDouble()
+            .let { sqrt(it).toInt() / 2 }
+
+    fun maxMultiple(d: Int, b: Int) = b / d * d
+
+    fun addLetters(arr: List<Char>) = 'z' - arr.sumOf { 'z' - it } % 26
+
+    fun rowSumOddNumbers(n: Int) = n * n * n
+
+    fun inviteMoreWomen(l: List<Int>) = l.sum() > 0
 }
