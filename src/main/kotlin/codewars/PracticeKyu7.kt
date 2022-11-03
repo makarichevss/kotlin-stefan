@@ -109,4 +109,16 @@ class PracticeKyu7 {
     fun rowSumOddNumbers(n: Int) = n * n * n
 
     fun inviteMoreWomen(l: List<Int>) = l.sum() > 0
+
+    fun moveTen(s: String): String =
+        s.map { 'a' + (((it - 'a') + 10) % 26) }.joinToString("")
+
+    fun longest(s1: String, s2: String): String =
+        (s1 + s2).toSortedSet().joinToString("")
+
+    fun smallEnough(a: IntArray, limit: Int): Boolean =
+        a.all { it <= limit }
+
+    fun overTheRoad(address: Int, n: Int): Int =
+        n * 2 - address + 1
 }
