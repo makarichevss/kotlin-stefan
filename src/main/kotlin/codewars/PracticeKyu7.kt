@@ -121,4 +121,34 @@ class PracticeKyu7 {
 
     fun overTheRoad(address: Int, n: Int): Int =
         n * 2 - address + 1
+
+    fun killKthBit(n: Int, k: Int): Int {
+        return n and (1 shl k - 1).inv()
+    }
+
+    fun fireFight(s: String) = s.replace("Fire", "~~")
+
+    fun baumSweet(): Iterator<Int> = iterator {
+        yield(1)
+        var x = 1
+        while (true) {
+            if (x.toString(2).split("1").any { it.length % 2 == 1 }) yield(0)
+            else yield(1)
+            x++
+        }
+    }
+
+    fun printerError(s: String): String {
+        return "${s.count { it > 'm' }}/${s.length}"
+    }
+
+    fun getMiddle(word: String) =
+        word.substring((word.length - 1) / 2 .. word.length / 2)
+
+    fun accum(s: String) =
+        s.mapIndexed { index, c ->
+            c.uppercaseChar() + c.lowercaseChar()
+                .toString().repeat(index)
+        }.joinToString("-")
 }
+
