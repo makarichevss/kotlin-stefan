@@ -1,9 +1,6 @@
 package codewars
 
-import kotlin.math.ceil
-import kotlin.math.pow
-import kotlin.math.roundToLong
-import kotlin.math.sqrt
+import kotlin.math.*
 
 class PracticeKyu7 {
 
@@ -143,12 +140,51 @@ class PracticeKyu7 {
     }
 
     fun getMiddle(word: String) =
-        word.substring((word.length - 1) / 2 .. word.length / 2)
+        word.substring((word.length - 1) / 2..word.length / 2)
 
     fun accum(s: String) =
         s.mapIndexed { index, c ->
             c.uppercaseChar() + c.lowercaseChar()
                 .toString().repeat(index)
         }.joinToString("-")
+
+    fun makeValley(arr: IntArray): IntArray {
+        arr.sortDescending()
+        val leftWing = arr.filterIndexed { index, _ -> index % 2 == 0 }
+        val rightWing =
+            arr.filterIndexed { index, _ -> index % 2 != 0 }.sorted()
+        return (leftWing + rightWing).toIntArray()
+    }
+
+    fun countRedBeads(nBlue: Int): Int = when {
+        nBlue < 2 -> 0
+        else -> (nBlue - 1) * 2
+    }
+
+    fun maxRot(n: Long): Long {
+        var maxN = n
+        var str = n.toString()
+        for (i in str.indices) {
+            str = StringBuilder(str + str[i]).deleteCharAt(i).toString()
+            maxN = maxOf(str.toLong(), maxN)
+        }
+        return maxN
+    }
+
+    fun outed(meet: Map<String, Int>, boss: String): String =
+        if ((meet.values + (meet[boss] ?: 0)).average() <= 5.0) {
+            "Get Out Now!"
+        } else
+            "Nice Work Champ!"
+
+    fun intRac(n: Long, guess: Long): Long =
+        generateSequence(guess) { (it + n / it) / 2 }
+            .zipWithNext { x, y -> abs(x - y) }
+            .indexOfFirst { it < 1 } + 1L
+
+    fun mxdiflg(a1: Array<String>, a2: Array<String>): Int {
+        return a1.flatMap { maxN -> a2.map { abs(maxN.length - it.length) } }
+            .maxOrNull() ?: -1
+    }
 }
 
