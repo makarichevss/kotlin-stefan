@@ -1,6 +1,9 @@
 package codewars
 
+import java.math.BigInteger
 import java.time.LocalDate
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.*
 
 class PracticeKyu7 {
@@ -21,10 +24,10 @@ class PracticeKyu7 {
 
     fun movie(card: Int, ticket: Int, perc: Double) =
         generateSequence(1) { it + 1 }.first {
-                it * ticket > ceil(
-                    card + ticket * perc * (1 - perc.pow(it)) / (1 - perc)
-                )
-            }
+            it * ticket > ceil(
+                card + ticket * perc * (1 - perc.pow(it)) / (1 - perc)
+            )
+        }
 
     fun newAvg(a: DoubleArray, navg: Double): Long {
         val n = navg * (a.size + 1) - a.sum()
@@ -163,8 +166,8 @@ class PracticeKyu7 {
 
     fun intRac(n: Long, guess: Long): Long =
         generateSequence(guess) { (it + n / it) / 2 }.zipWithNext { x, y ->
-                abs(x - y)
-            }.indexOfFirst { it < 1 } + 1L
+            abs(x - y)
+        }.indexOfFirst { it < 1 } + 1L
 
     fun mxdiflg(a1: Array<String>, a2: Array<String>): Int {
         return a1.flatMap { maxN -> a2.map { abs(maxN.length - it.length) } }
@@ -178,7 +181,29 @@ class PracticeKyu7 {
         array.filter { it % 2 == 0 }.takeLast(number)
 
     fun wallpaper(l: Double, w: Double, h: Double): String {
-        val textNum = arrayOf("zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen", "twenty")
+        val textNum = arrayOf(
+            "zero",
+            "one",
+            "two",
+            "three",
+            "four",
+            "five",
+            "six",
+            "seven",
+            "eight",
+            "nine",
+            "ten",
+            "eleven",
+            "twelve",
+            "thirteen",
+            "fourteen",
+            "fifteen",
+            "sixteen",
+            "seventeen",
+            "eighteen",
+            "nineteen",
+            "twenty"
+        )
 
         if (l == 0.0 || w == 0.0 || h == 0.0)
             return "zero"
@@ -188,9 +213,8 @@ class PracticeKyu7 {
     }
 
     fun dateNbDays(a0: Double, a: Double, p: Double): String {
-        val b = 1
         val incomeDate =
-            generateSequence(a0) { it + it * (10 / b / 360) }
+            generateSequence(a0) { it + it * (p / 100 / 360) }
                 .takeWhile { it <= a }.count().toLong()
         return LocalDate.parse("2016-01-01").plusDays(incomeDate).toString()
     }
@@ -209,5 +233,63 @@ object Opstrings {
 
     fun oper(fn: (String) -> String, s: String): String = fn(s)
 
+    fun count(number: Int): Int {
+        val nominal = intArrayOf(500, 200, 100, 50, 20, 10)
+        var count = 0
+        var remain = number
+
+        while (remain != 0) {
+            remain -= nominal.find { it <= remain } ?: return -1
+            count++
+        }
+
+        return number
+    }
+
+    fun potatoes(p0: Int, w0: Int, p1: Int): Int =
+        w0 * (100 - p0) / (100 - p1)
+
+    fun seven(n: Long): LongArray {
+        var x = n
+        var count = 0L
+        while (x > 99) {
+            x = (x / 10) - (x % 10) * 2
+            count++
+        }
+        return longArrayOf(x, count)
+    }
+
+    private fun choose(x: Int, y: Int): BigInteger {
+        var num = BigInteger.ONE
+        for (i in 0 until y) {
+            num = num.multiply(BigInteger.valueOf((x - i).toLong()))
+                .divide(BigInteger.valueOf((i + 1).toLong()))
+        }
+        return num
+    }
+
+    fun easyLine(n: Int): BigInteger {
+        return choose(2 * n, n)
+    }
+
 }
 
+object FixStringCase {
+    fun solve(s: String): String =
+        if (s.count { it.isUpperCase() } > s.length / 2) {
+            s.toUpperCase()
+        } else {
+            s.toLowerCase()
+        }
+}
+
+object Kata {
+    fun grid(n: Int) = when {
+        (n < 0) -> null
+        else -> (0 until n).joinToString("\n")
+        { a ->
+            (0 until n).joinToString(" ")
+            { b -> 'a' + (a + b) % 26 + "" }
+        }
+    }
+}
