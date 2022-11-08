@@ -32,7 +32,7 @@ class PracticeKyu7 {
     fun newAvg(a: DoubleArray, navg: Double): Long {
         val n = navg * (a.size + 1) - a.sum()
         require(n > 0)
-        println("javaClass = ${javaClass}")
+        println("javaClass = $javaClass")
         return ceil(n).roundToLong()
     }
 
@@ -103,7 +103,7 @@ class PracticeKyu7 {
         s.map { 'a' + (((it - 'a') + 10) % 26) }.joinToString("")
 
     fun longest(s1: String, s2: String): String =
-        (s1 + s2).toSortedSet().joinToString("")
+        (s1 + s2).toSortedSet().joinToString(" ")
 
     fun smallEnough(a: IntArray, limit: Int): Boolean = a.all { it <= limit }
 
@@ -272,7 +272,72 @@ object Opstrings {
         return choose(2 * n, n)
     }
 
+    tailrec fun prevMultOfThree(n: Int): Int? =
+        when {
+            n == 0 -> null
+            n % 3 == 0 -> n
+            else -> prevMultOfThree(n / 10)
+        }
+
+    fun twoOldestAges(ages: List<Int>): List<Int> =
+        ages.sorted().takeLast(2)
+
+    fun angle(n: Int): Int = 180 * (n - 2)
+
+    fun quadratic(a: Double, b: Double, c: Double): Double = -c / b
+
+    fun infected(s: String): Double {
+        val people = s.filter { it != 'X' }.length
+        if (people == 0) {
+            return 0.0
+        }
+
+        val infectedPeople = s.split('X')
+            .filter { it.contains('1') }
+            .sumOf { it.length }
+
+        return infectedPeople / people.toDouble() * 100
+    }
+
+    fun alphabetWar(fight: String): String {
+        val res = fight.sumOf { c -> (leftLetters.indexOf(c) + 1) -
+                (rightLetters.indexOf(c) + 1) }
+        return when {
+            res > 0 -> "Left side wins!"
+            res < 0 -> "Right side wins!"
+            else -> "Let's fight again!"
+        }
+    }
+
+    fun fizzBuzz(n: Int): Array<String> =
+        (1..n).map {
+            when {
+                it % 3 == 0 && it % 5 == 0 -> "FizzBuzz"
+                it % 5 == 0 -> "Buzz"
+                it % 3 == 0 -> "Fizz"
+                else -> "$it"
+            }
+        }.toTypedArray()
+
+    fun catMouse(s: String): String =
+        if (s.length > 5) {
+            "Escaped!"
+        } else {
+            "Caught!"
+        }
+
+    fun crap(x: Array<CharArray>, bags: Int, cap: Int): String {
+        val garden = x.flatMap { it.toList() }
+        return when {
+            garden.contains('D') -> "Dog!!"
+            garden.count { it == '@' } > (bags * cap) -> "Cr@p"
+            else -> "Clean"
+        }
+    }
 }
+
+private const val leftLetters = "sbpw"
+private const val rightLetters = "zdqm"
 
 object FixStringCase {
     fun solve(s: String): String =
@@ -291,5 +356,29 @@ object Kata {
             (0 until n).joinToString(" ")
             { b -> 'a' + (a + b) % 26 + "" }
         }
+    }
+}
+
+class CircularList<T>(private vararg val elements: T) {
+    private var el = -1
+
+    init {
+        if (elements.isEmpty()) {
+            throw Exception()
+        }
+    }
+
+    fun next(): T {
+        el = (el + 1) % elements.size
+        return elements[el]
+    }
+
+    fun prev(): T {
+        el = if (el <= 0) {
+            elements.lastIndex
+        } else {
+            el - 1
+        }
+        return elements[el]
     }
 }
