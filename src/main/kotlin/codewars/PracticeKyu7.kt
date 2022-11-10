@@ -2,8 +2,6 @@ package codewars
 
 import java.math.BigInteger
 import java.time.LocalDate
-import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.*
 
 class PracticeKyu7 {
@@ -300,8 +298,10 @@ object Opstrings {
     }
 
     fun alphabetWar(fight: String): String {
-        val res = fight.sumOf { c -> (leftLetters.indexOf(c) + 1) -
-                (rightLetters.indexOf(c) + 1) }
+        val res = fight.sumOf { c ->
+            (leftLetters.indexOf(c) + 1) -
+                    (rightLetters.indexOf(c) + 1)
+        }
         return when {
             res > 0 -> "Left side wins!"
             res < 0 -> "Right side wins!"
@@ -334,6 +334,52 @@ object Opstrings {
             else -> "Clean"
         }
     }
+
+    fun squarePi(digits: Int): Int {
+        val pi =
+            "31415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679"
+        return pi.take(digits).map { it.toString().toDouble() }
+            .sumOf { it * it }
+            .let { ceil(sqrt(it)).toInt() }
+    }
+
+    fun argsCount(vararg args: Any): Int = args.size
+
+    fun allRationals(): Iterator<Pair<Int, Int>> = iterator {
+        yield(Pair(1, 1))
+        allRationals().forEach { (m, n) ->
+            yieldAll(
+                listOf(
+                    Pair(m, m + n),
+                    Pair(n + m, n)
+                )
+            )
+        }
+    }
+
+    fun capitalize(text: String): List<String> = listOf(
+        text.mapIndexed { index, it ->
+            if (index % 2 == 0) {
+                it.toUpperCase()
+            } else {
+                it
+            }
+        }.joinToString(""),
+        text.mapIndexed { index, it ->
+            if (index % 2 != 0) {
+                it.toUpperCase()
+            } else {
+                it
+            }
+        }.joinToString("")
+    )
+
+    fun catchSignChange(arr: Array<Int>): Int = arr.asSequence()
+        .zipWithNext()
+        .count { it.first >= 0 != it.second >= 0 }
+
+    fun repeats(arr: IntArray): Int =
+        arr.groupBy { it }.filterValues { it.size < 2 }.keys.sum()
 }
 
 private const val leftLetters = "sbpw"
@@ -380,5 +426,13 @@ class CircularList<T>(private vararg val elements: T) {
             el - 1
         }
         return elements[el]
+    }
+}
+
+object DoubleSort {
+    fun dbSort(a: Array<Any>): Array<Any> {
+        val strSort = a.filterIsInstance<String>().sorted()
+        val intSort = a.filterIsInstance<Int>().sorted()
+        return (intSort + strSort).toTypedArray()
     }
 }
