@@ -380,6 +380,35 @@ object Opstrings {
 
     fun repeats(arr: IntArray): Int =
         arr.groupBy { it }.filterValues { it.size < 2 }.keys.sum()
+
+    fun nameValue(arr: Array<String>): IntArray =
+        arr.indices.map {
+            arr[it].replace(" ", "")
+                .map { i -> (i.code - 96) * (it + 1) }
+                .sum()
+        }
+            .toIntArray()
+
+    fun leaderBoard(user: String, userScore: Int, yourScore: Int) =
+        when {
+            userScore == yourScore -> "Only need one!"
+            userScore < yourScore -> "Winning!"
+            else -> {
+                val differ = userScore - yourScore
+                val betaK = differ / 3
+                val eightK = differ % 3
+                "To beat $user's score, I must complete $betaK Beta kata " +
+                        "and $eightK 8kyu kata." + if ((betaK + eightK) > 1000)
+                    " Dammit!" else ""
+            }
+        }
+
+    fun findScreenHeight(width: Int, ratio: String): String {
+        val (wid, hei) = ratio.split(":")
+            .map { it.toInt() }
+        return "${width}x${width * hei / wid}"
+    }
+
 }
 
 private const val leftLetters = "sbpw"
