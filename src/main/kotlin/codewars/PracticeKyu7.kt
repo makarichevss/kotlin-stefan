@@ -2,6 +2,8 @@ package codewars
 
 import java.math.BigInteger
 import java.time.LocalDate
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.*
 
 class PracticeKyu7 {
@@ -409,6 +411,41 @@ object Opstrings {
         return "${width}x${width * hei / wid}"
     }
 
+    fun hidePasswordFromConnection(urlString: String): String {
+        val pass = urlString
+            .substringAfter("password=")
+            .substringBefore("&")
+        return urlString.replace(pass, "*".repeat(pass.length))
+    }
+
+    fun firstReverseTry(arr: IntArray): IntArray =
+        when (arr.size) {
+            0, 1 -> arr
+            else -> arr.copyOf().apply {
+                this[0] = arr[lastIndex]
+                this[lastIndex] = arr[0]
+            }
+        }
+
+    fun willYou(young: Boolean, beautiful: Boolean, loved: Boolean): Boolean =
+        (young && beautiful) != loved
+
+    fun alphaSeq(str: String): String =
+        str.lowercase(Locale.getDefault())
+            .toCharArray()
+            .sorted()
+            .joinToString(",") {
+                "$it".uppercase(Locale.getDefault()) + "$it".repeat(it - 'a')
+            }
+
+    fun babyCount(x: String): Int? {
+        val count = minOf(
+            x.toLowerCase().count { it == 'a' },
+            x.toLowerCase().count { it == 'y' },
+            x.toLowerCase().count { it == 'b' } / 2
+        )
+        return if (count == 0) { null } else { count }
+    }
 }
 
 private const val leftLetters = "sbpw"
