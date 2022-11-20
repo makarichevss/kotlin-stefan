@@ -444,8 +444,63 @@ object Opstrings {
             x.toLowerCase().count { it == 'y' },
             x.toLowerCase().count { it == 'b' } / 2
         )
-        return if (count == 0) { null } else { count }
+        return if (count == 0) {
+            null
+        } else {
+            count
+        }
     }
+
+    fun reverse(a: List<String>): List<String> {
+        val output = a.joinToString("").reversed().iterator()
+        return a.map {
+            List(it.length) {
+                output.nextChar()
+            }.joinToString("")
+        }
+    }
+
+    fun fizzBuzzCuckooClock(time: String): String {
+        val (hours, minutes) = time.split(":").map { it.toInt() }
+        return when {
+            minutes == 0 -> "Cuckoo ".repeat(
+                (hours % 12).let {
+                    if (it == 0) 12 else it
+                }
+            ).dropLast(1)
+
+            minutes == 30 -> "Cuckoo"
+            minutes % 15 == 0 -> "Fizz Buzz"
+            minutes % 5 == 0 -> "Buzz"
+            minutes % 3 == 0 -> "Fizz"
+            else -> "tick"
+        }
+    }
+
+    fun isTuringEquation(s: String): Boolean {
+        return s.split('+', '=')
+            .map { it.reversed().toInt() }
+            .let {
+                it[0] + it[1] == it[2]
+            }
+    }
+
+    fun digitsAverage(input: Int): Int {
+        var digit = input.toString().map { Character.getNumericValue(it) }
+        while (digit.size > 1) {
+            digit = digit.zipWithNext { x, y -> (x + y + 1) / 2 }
+        }
+        return digit.first()
+    }
+
+    fun electionsWinners(votes: Array<Int>, k: Int): Int {
+        val maxVotes = votes.maxOrNull()
+        if (k == 0) {
+            return if (votes.count { it == maxVotes } > 1) 0 else 1
+        }
+        return votes.count { it + k > (maxVotes ?: 0) }
+    }
+
 }
 
 private const val leftLetters = "sbpw"
