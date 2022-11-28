@@ -18,16 +18,16 @@ class PracticeKyu7 {
     fun geometricSequenceElements(a: Int, r: Int, n: Int) =
         generateSequence(a) { r * it }.take(n).joinToString(", ")
 
-    fun nbYear(pp0: Int, percent: Double, aug: Int, p: Int) =
-        generateSequence(pp0) { (it * (1 + percent / 100) + aug).toInt() }.takeWhile { it < p }
-            .count()
-
     fun movie(card: Int, ticket: Int, perc: Double) =
         generateSequence(1) { it + 1 }.first {
             it * ticket > ceil(
                 card + ticket * perc * (1 - perc.pow(it)) / (1 - perc)
             )
         }
+
+    fun nbYear(pp0: Int, percent: Double, aug: Int, p: Int) =
+        generateSequence(pp0) { (it * (1 + percent / 100) + aug).toInt() }.takeWhile { it < p }
+            .count()
 
     fun newAvg(a: DoubleArray, navg: Double): Long {
         val n = navg * (a.size + 1) - a.sum()
@@ -58,8 +58,7 @@ class PracticeKyu7 {
     fun partList(arr: Array<String>): Array<Array<String>> {
         return (0..(arr.size - 2)).map {
             arrayOf(
-                arr.take(it).joinToString(" "), arr.drop(it).joinToString(" ")
-            )
+                arr.take(it).joinToString(" "), arr.drop(it).joinToString(" "))
         }.toTypedArray()
     }
 
