@@ -137,7 +137,59 @@ class PracticeKyu6 {
             "XXX......|...XXX...|......XXX|X..X..X|X...X...X|..X.X.X..".toRegex()
         val rgxSecond =
             "OOO......|...OOO...|......OOO|O..O..O|O...O...O|..O.O.O..".toRegex()
-        return rgxFirst.containsMatchIn(board) || rgxSecond.containsMatchIn(board)
+        return rgxFirst.containsMatchIn(board) || rgxSecond.containsMatchIn(
+            board
+        )
+    }
+
+    fun findNb(m: Long): Long {
+        var a = 0L
+        var cube = 0L
+
+        while (cube < m) {
+            cube += a * a * a
+            a++
+        }
+        return if (cube == m)
+            a - 1
+        else
+            -1
+    }
+
+    fun solution(number: Int): Int {
+        return (1 until number).filter {
+            it % 3 == 0 || it % 5 == 0
+        }.sum()
+    }
+
+    fun longestRepetition(s: String): Pair<Char?, Int> {
+        if (s.isEmpty()) return Pair(null, 0)
+        var a = Pair(s[0], 1)
+        var b = a
+
+        s.windowed(2).forEach {
+            b = if (it[1] == it[0])
+                Pair(it[1], b.second + 1)
+            else
+                Pair(it[1], 1)
+
+            if (b.second > a.second) {
+                a = b
+            }
+        }
+        return a
+    }
+
+    fun findEvenIndex(arr: IntArray): Int =
+        arr.indices.indexOfFirst {
+            arr.take(it).sum() == arr.drop(it + 1).sum()
+        }
+
+    fun blackOrWhiteKey(keyPressCount: Int): String {
+        return when ((keyPressCount - 1) % 88 % 12) {
+            1, 4, 6, 9, 11 -> "black"
+            else -> "white"
+        }
     }
 
 }
