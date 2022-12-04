@@ -3,9 +3,7 @@ package codewars
 import java.lang.ArithmeticException
 import java.util.*
 import javax.swing.Box
-import kotlin.math.atan2
-import kotlin.math.ln
-import kotlin.math.sqrt
+import kotlin.math.*
 
 class PracticeKyu6 {
 
@@ -191,6 +189,38 @@ class PracticeKyu6 {
             else -> "white"
         }
     }
+
+    fun doors(n: Int): Int {
+        return Math.sqrt(n.toDouble()).toInt()
+    }
+
+    fun amort(rate: Double, bal: Int, term: Int, numPayments: Int): String {
+        val rt = rate / 1200
+        val ct = (rt * bal) / (1 - (1 + rt).pow(-term)) // monthlyPayment
+        val prBalance = (1 + rt).pow(numPayments - 1) * bal -
+                (((1 + rt).pow(numPayments - 1) - 1) / rt) * ct
+        val balance = (1 + rt).pow(numPayments) * bal -
+                (((1 + rt).pow(numPayments) - 1) / rt) * ct
+        val princ = prBalance - balance
+        val int = ct - princ
+        return "num_payment $numPayments c ${ct.roundToInt()} princ " +
+                "${princ.roundToInt()} int ${int.roundToInt()} balance ${balance.roundToInt()}"
+
+    }
+
+    fun encryptThis(text: String): String {
+        return text.split(" ").joinToString(" ") {
+            it.mapIndexed { index, c ->
+                when (index) {
+                    0 -> c.code.toString()
+                    1 -> it.last().toString()
+                    it.lastIndex -> it[1].toString()
+                    else -> c.toString()
+                }
+            }.joinToString(" ")
+        }
+    }
+
 
 }
 
