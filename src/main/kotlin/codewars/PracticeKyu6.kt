@@ -217,11 +217,14 @@ class PracticeKyu6 {
                     it.lastIndex -> it[1].toString()
                     else -> c.toString()
                 }
-            }.joinToString(" ")
+            }.joinToString("  ")
         }
     }
 
-
+    fun toCamelCase(str: String): String =
+        str.split('_', '-').mapIndexed {
+                index, it -> if (index != 0) it.capitalize() else it }
+            .joinToString("")
 }
 
 class Leetspeak : Encoder() {
